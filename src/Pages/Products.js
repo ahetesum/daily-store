@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
 
-
-
-export const Dashboard = () => {
+export const Products = () => {
     return (
         <DailyStorePage>
-            <div>
-                <h1>Dashboard</h1>
-                <Link to='/register' >Register</Link>
-            </div>
+            <h1>Products</h1>
+            <Link to='/register' >Register</Link>
         </DailyStorePage>
-
     )
 }
