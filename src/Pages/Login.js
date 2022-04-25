@@ -18,7 +18,6 @@ export const Login = () => {
         logInWithEmailAndPassword(email, password)    
     }
 
-
     const navigate = useNavigate();
     
     useEffect(() => {

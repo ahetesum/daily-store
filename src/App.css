@@ -155,3 +155,10 @@ ul {
 .login div {
   margin-top: 7px;
 }
+
+/* Dashboard Page */
+
+.sliderContainer
+{
+  height: 20vh;
+}
