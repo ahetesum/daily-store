@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { DailyStoreSlider } from "../Components/Func/DailyStoreSlider"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
 
 
@@ -7,7 +8,7 @@ export const Dashboard = () => {
     return (
         <DailyStorePage>
             <div>
-                <h1>Dashboard</h1>
+                <DailyStoreSlider />
                 <Link to='/register' >Register</Link>
             </div>
         </DailyStorePage>
