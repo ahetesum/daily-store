@@ -15,9 +15,9 @@ import { SideMenu } from './Components/Func/SideMenu';
 function App() {
   return (
     <div className='appContainer'>
-      <DailyStoreHeader />
-      <div className='bodyContainer'>
-        <BrowserRouter>
+      <BrowserRouter>
+        <DailyStoreHeader />
+        <div className='bodyContainer'>
           <SideMenu />
           <div className='mainContainer'>
             <Routes>
@@ -29,15 +29,15 @@ function App() {
               <Route path='/about-us' element={<About />} ></Route>
               <Route path='/login' element={<Login />} ></Route>
               <Route path='/register' element={<Regstration />} ></Route>
-
             </Routes>
           </div>
           <div className='menuContainer'>
           </div>
-        </BrowserRouter>
-      </div>
+        </div>
 
-      <DailyStoreFooter />
+        <DailyStoreFooter />
+      </BrowserRouter>
+
     </div>
   );
 }

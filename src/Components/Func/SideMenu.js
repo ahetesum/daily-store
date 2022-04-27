@@ -1,8 +1,16 @@
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import { auth, logout } from "../../Helpers/FirebaseHelper";
 
 
 
 export const SideMenu=()=>{
+
+
+  const [user, loading, error] = useAuthState(auth);
+
+
+
     return (
         <div className='menuContainer'>
         <ul>
@@ -21,6 +29,11 @@ export const SideMenu=()=>{
           <li className='menuItem'>
             <Link to="/about-us">About Us</Link>
           </li>
+          {
+            (user)?<li onClick={()=>logout()} className='menuItem'>
+            <Link to="/about-us">Log Out</Link>
+          </li>:null
+          }
         </ul>
       </div>
     );

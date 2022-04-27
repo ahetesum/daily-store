@@ -9,7 +9,6 @@ export const Dashboard = () => {
         <DailyStorePage>
             <div>
                 <DailyStoreSlider />
-                <Link to='/register' >Register</Link>
             </div>
         </DailyStorePage>
 

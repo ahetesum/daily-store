@@ -1,6 +1,8 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
+import { auth, registerWithEmailAndPassword } from "../Helpers/FirebaseHelper";
 
 
 export const Regstration = () => {
@@ -10,14 +12,15 @@ export const Regstration = () => {
     const [password,setPassword]= useState('');
 
     const [isValid,setIsValid]= useState(true);
-    const [validationMessage,setValidationMessage]= useState('Heloooo');
+    const [validationMessage,setValidationMessage]= useState('');
 
+    const [user, loading, error] = useAuthState(auth);
 
 
     const completeRegistration=()=>{
        
        if(isFormValid())
-            console.log("Regtration API")
+       registerWithEmailAndPassword(name,email,password);
     }
 
     const isFormValid=()=>{
@@ -50,6 +53,19 @@ export const Regstration = () => {
 
  
     }
+
+    const nav= useNavigate();
+
+    useEffect(()=>{
+        if(loading)
+        {
+            return;
+        }
+        if(user)
+        {
+            nav('/');
+        }
+    },[user,loading])
 
     return (
         <DailyStorePage>
