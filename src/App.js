@@ -11,10 +11,21 @@ import { Contact } from './Pages/Contact';
 import { About } from './Pages/About';
 import { Dashboard } from './Pages/Dashboard';
 import { SideMenu } from './Components/Func/SideMenu';
+import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import userReducer from './Store/Reducers/userReducer';
+
+
+const rootReducer= combineReducers({
+  user:userReducer
+});
+const dailyStore = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
 function App() {
   return (
     <div className='appContainer'>
+      <Provider store={dailyStore} >
       <BrowserRouter>
         <DailyStoreHeader />
         <div className='bodyContainer'>
@@ -37,7 +48,7 @@ function App() {
 
         <DailyStoreFooter />
       </BrowserRouter>
-
+      </Provider>
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
-import { auth, logInWithEmailAndPassword ,logout} from "../Helpers/FirebaseHelper";
+import { decipher } from "../Helpers/CryptoHelper";
+import { loginUser } from "../Store/Actions/userAction";
 
 
 
@@ -12,28 +12,28 @@ export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [user, loading, error] = useAuthState(auth);
 
 
-    const completeLogin=()=>{
-
-        ///VAlidation needs to be there
-
-        logInWithEmailAndPassword(email, password)    
-    }
 
     const navigate = useNavigate();
+    const loginDispatch=useDispatch();
     
+    const completeLogin=()=>{
+            loginDispatch(loginUser(email,password));
+        
+    }
+
+    const user= useSelector(state=>state.user)
+
+
+
     useEffect(() => {
-        if (loading) {
-            // Loading
-            return;
-        }
-        if (user) 
+        console.log('Login Page ',user)
+        if (user && user.currentUser) 
         {
             navigate("/");
         }
-    }, [user, loading]);
+    }, [user]);
 
 
     return (

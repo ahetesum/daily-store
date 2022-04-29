@@ -35,7 +35,6 @@ export const Products = () => {
                 })
             }
             </div>
-            <Link to='/register' >Register</Link>
         </DailyStorePage>
     )
 }

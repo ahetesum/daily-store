@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
-import { auth, registerWithEmailAndPassword } from "../Helpers/FirebaseHelper";
+import { cypher } from "../Helpers/CryptoHelper";
 
 
 export const Regstration = () => {
@@ -14,14 +13,49 @@ export const Regstration = () => {
     const [isValid,setIsValid]= useState(true);
     const [validationMessage,setValidationMessage]= useState('');
 
-    const [user, loading, error] = useAuthState(auth);
 
 
     const completeRegistration=()=>{
        
        if(isFormValid())
-       registerWithEmailAndPassword(name,email,password);
+       registerNewUser();
     }
+
+    const registerNewUser= async()=>{
+
+        let encryptedPswd= cypher(password);
+        console.log(encryptedPswd);
+
+        const response= await fetch(
+            'https://daily-store-8f1fb-default-rtdb.asia-southeast1.firebasedatabase.app/user.json',
+            {
+                method : "POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password:encryptedPswd,
+                })
+            }
+        );
+
+        const resData= await response.json();
+
+        console.log(JSON.stringify(resData))
+        if(resData.name)
+        {
+            nav('/login');
+            setValidationMessage("");
+
+        }
+        else{
+            setValidationMessage("Failed to Create User");
+        }
+
+    }
+
 
     const isFormValid=()=>{
         if(name.length<3)
@@ -56,16 +90,16 @@ export const Regstration = () => {
 
     const nav= useNavigate();
 
-    useEffect(()=>{
-        if(loading)
-        {
-            return;
-        }
-        if(user)
-        {
-            nav('/');
-        }
-    },[user,loading])
+    // useEffect(()=>{
+    //     if(loading)
+    //     {
+    //         return;
+    //     }
+    //     if(user)
+    //     {
+    //         nav('/');
+    //     }
+    // },[user,loading])
 
     return (
         <DailyStorePage>

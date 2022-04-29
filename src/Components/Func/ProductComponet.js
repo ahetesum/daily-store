@@ -1,6 +1,6 @@
 
 export const ProductComponet=(props)=>{
-    const {id, title,description,imgUrl,price} = props.product
+    const {id, title,description,imgUrl,price} = props.product;
     return (
         <div className='productContainer'>
             <img src={imgUrl} height={180} width={120} />

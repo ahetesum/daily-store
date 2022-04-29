@@ -1,13 +1,18 @@
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { auth, logout } from "../../Helpers/FirebaseHelper";
+import { logOut } from "../../Store/Actions/userAction";
 
 
 
 export const SideMenu=()=>{
 
+  const user= useSelector(state=>state.user);
 
-  const [user, loading, error] = useAuthState(auth);
+  let userDispatch=useDispatch();
+  const logout=()=>{
+    userDispatch(logOut)
+  }
 
 
 
@@ -20,6 +25,9 @@ export const SideMenu=()=>{
           <li className='menuItem'>
             <Link to="/product-mngr">Products</Link>
           </li>
+          { ( user && user.currentUser)?<li className='menuItem'>
+            <Link to="/add-product">Add Product</Link>
+          </li>:null}
           <li className='menuItem'>
             <Link to="/order-mngr">Order History</Link>
           </li>
@@ -30,8 +38,8 @@ export const SideMenu=()=>{
             <Link to="/about-us">About Us</Link>
           </li>
           {
-            (user)?<li onClick={()=>logout()} className='menuItem'>
-            <Link to="/about-us">Log Out</Link>
+             ( user && user.currentUser)?<li onClick={()=>logout()} className='menuItem'>
+            <Link to="/">Log Out</Link>
           </li>:null
           }
         </ul>
