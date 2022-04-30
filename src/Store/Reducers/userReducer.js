@@ -1,8 +1,9 @@
-import { LOGIN_USER, LOGOUT_USER } from "../Actions/userAction";
+import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "../Actions/userAction";
 
 
 const initialState={
     currentUser:null,
+    isRegister:false,
 };
 
  const userReducer=(state=initialState,action)=>{
@@ -14,8 +15,13 @@ const initialState={
                 ...state, 
                 currentUser: action.currentUser,
             }
+         case REGISTER_USER:
+             console.log(action.isRegister)  
+             return{ 
+                ...state, 
+                isRegister: action.isRegister,
+            }
         case LOGOUT_USER:
-            console.log('LOGOUT_USER')
             return initialState;
 
     }

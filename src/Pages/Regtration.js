@@ -2,18 +2,20 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
 import { cypher } from "../Helpers/CryptoHelper";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../Store/Actions/userAction";
 
 
 export const Regstration = () => {
 
+    const [loading,setLoading]= useState('');
     const [name,setName]= useState('');
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
-
     const [isValid,setIsValid]= useState(true);
     const [validationMessage,setValidationMessage]= useState('');
 
-
+    const userInfo= useSelector(state=>state.user);
 
     const completeRegistration=()=>{
        
@@ -21,39 +23,14 @@ export const Regstration = () => {
        registerNewUser();
     }
 
-    const registerNewUser= async()=>{
+    let regDispach= useDispatch();
 
+    const registerNewUser=()=>{
+        setLoading(true)
         let encryptedPswd= cypher(password);
         console.log(encryptedPswd);
-
-        const response= await fetch(
-            'https://daily-store-8f1fb-default-rtdb.asia-southeast1.firebasedatabase.app/user.json',
-            {
-                method : "POST",
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    password:encryptedPswd,
-                })
-            }
-        );
-
-        const resData= await response.json();
-
-        console.log(JSON.stringify(resData))
-        if(resData.name)
-        {
-            nav('/login');
-            setValidationMessage("");
-
-        }
-        else{
-            setValidationMessage("Failed to Create User");
-        }
-
+        regDispach(registerUser(name,email,encryptedPswd));
+        
     }
 
 
@@ -90,20 +67,18 @@ export const Regstration = () => {
 
     const nav= useNavigate();
 
-    // useEffect(()=>{
-    //     if(loading)
-    //     {
-    //         return;
-    //     }
-    //     if(user)
-    //     {
-    //         nav('/');
-    //     }
-    // },[user,loading])
+    useEffect(()=>{
+
+        if(userInfo && userInfo.isRegister)
+        {
+            setLoading(false)
+            nav('/login');
+        }
+    },[userInfo])
 
     return (
         <DailyStorePage>
-        <div className="register">
+        {(loading)?<h1>Loading....</h1>:<div className="register">
             <div className="register__container">
                 <input
                     type="text"
@@ -138,7 +113,7 @@ export const Regstration = () => {
                   (!isValid) ? <p className="valMsg">{validationMessage} </p>:null
                } 
             </div>
-        </div>
+        </div>}
     </DailyStorePage>
     )
 }

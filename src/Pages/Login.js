@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
-import { decipher } from "../Helpers/CryptoHelper";
 import { loginUser } from "../Store/Actions/userAction";
 
 
@@ -11,16 +10,11 @@ export const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-
-
-
     const navigate = useNavigate();
     const loginDispatch=useDispatch();
     
     const completeLogin=()=>{
             loginDispatch(loginUser(email,password));
-        
     }
 
     const user= useSelector(state=>state.user)
@@ -28,7 +22,6 @@ export const Login = () => {
 
 
     useEffect(() => {
-        console.log('Login Page ',user)
         if (user && user.currentUser) 
         {
             navigate("/");

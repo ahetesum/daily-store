@@ -18,7 +18,8 @@ import userReducer from './Store/Reducers/userReducer';
 
 
 const rootReducer= combineReducers({
-  user:userReducer
+  user:userReducer,
+ // products:productReducer
 });
 const dailyStore = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
