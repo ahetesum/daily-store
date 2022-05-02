@@ -16,6 +16,8 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import userReducer from './Store/Reducers/userReducer';
 import productReducer from './Store/Reducers/productReducer';
+import { AddProduct } from './Pages/AddProduct';
+import { ProductMngr } from './Pages/ProductMngr';
 
 
 const rootReducer= combineReducers({
@@ -36,7 +38,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Dashboard />} ></Route>
               <Route path='/register' element={<Regstration />} ></Route>
-              <Route path='/product-mngr' element={<Products />} ></Route>
+              <Route path='/products' element={<Products />} ></Route>
+              <Route path='/product-mngr' element={<ProductMngr />} ></Route>
+              <Route path='/add-product' element={<AddProduct />} ></Route>
               <Route path='/order-mngr' element={<Orders />} ></Route>
               <Route path='/contact-us' element={<Contact />} ></Route>
               <Route path='/about-us' element={<About />} ></Route>

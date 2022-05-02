@@ -23,7 +23,10 @@ export const SideMenu=()=>{
             <Link to="/">Home</Link>
           </li>
           <li className='menuItem'>
-            <Link to="/product-mngr">Products</Link>
+            <Link to="/products">Products</Link>
+          </li>
+          <li className='menuItem'>
+            <Link to="/product-mngr">Manager</Link>
           </li>
           { ( user && user.currentUser)?<li className='menuItem'>
             <Link to="/add-product">Add Product</Link>

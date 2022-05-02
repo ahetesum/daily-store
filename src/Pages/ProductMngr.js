@@ -1,12 +1,11 @@
-import { async } from "@firebase/util";
-import { useEffect, useState } from "react"
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom"
 import { ProductComponet } from "../Components/Func/ProductComponet";
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
 import { getProduct } from "../Store/Actions/productAction";
 
-export const Products = () => {
+
+export const ProductMngr=()=>{
 
     const productsDispach=useDispatch();
     const products= useSelector(state=>state.products);
@@ -16,13 +15,13 @@ export const Products = () => {
         productsDispach(getProduct());
     },[]);
 
-    return (
+    return(
         <DailyStorePage>
             <h1>Products</h1>
             <div className="produtList">
             {
                products && products.availableProducts.map((item)=>{
-                    return <ProductComponet key={item.id} product={item} isAdmin={false}/>
+                    return <ProductComponet key={item.id} product={item} isAdmin={true} />
                 })
             }
             </div>
