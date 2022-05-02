@@ -1,37 +1,28 @@
 import { async } from "@firebase/util";
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import { ProductComponet } from "../Components/Func/ProductComponet";
 import { DailyStorePage } from "../Components/UI/DailyStorePage"
+import { getProduct } from "../Store/Actions/productAction";
 
 export const Products = () => {
 
-
-    const [products,setProducts]= useState([]);
-
+    const productsDispach=useDispatch();
+    const products= useSelector(state=>state.products);
 
     useEffect(()=>{
-         fetchProducts();
-
+        console.log(products.availableProducts)
+        productsDispach(getProduct());
     },[]);
-
-    const fetchProducts = async()=>{
-        let response= await fetch('https://daily-store-8f1fb-default-rtdb.asia-southeast1.firebasedatabase.app/products.json');
-
-        const resData= await response.json();
-
-        const resProducts = Object.entries(resData).map(([id, item]) => ({ id, title:item.title ,description:item.description,price:item.price,imgUrl:item.imgUrl}));
-        console.log(resProducts);
-        setProducts(resProducts);
-    }
 
     return (
         <DailyStorePage>
             <h1>Products</h1>
             <div className="produtList">
             {
-                products.map((item)=>{
-                    return <ProductComponet product={item}/>
+               products && products.availableProducts.map((item)=>{
+                    return <ProductComponet key={item.id} product={item}/>
                 })
             }
             </div>

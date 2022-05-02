@@ -15,11 +15,12 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import userReducer from './Store/Reducers/userReducer';
+import productReducer from './Store/Reducers/productReducer';
 
 
 const rootReducer= combineReducers({
   user:userReducer,
- // products:productReducer
+  products:productReducer
 });
 const dailyStore = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
