@@ -6,4 +6,4 @@ test('renders learn react link', () => {
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
-//My name is Vithika Bhatt my friend Name is Soumya. We pursue Electronic and Communication. We are from SBU 
+//My name is Ahetesum Ali my friend Name is Rakesh. We pursue CSE. We are from WBUT 
